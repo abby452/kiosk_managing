@@ -78,33 +78,33 @@ public class JdbcVectorTableEvnetSample extends JFrame {
 
 
 	/**
-	 * @ tfNum		상품코드를 표시하는 텍스트 필드 변수명
+	 * @ tfItemCode		상품코드를 표시하는 텍스트 필드 변수명
 	 * @GeneratedValue
 	 * 설명 : 상품코드를 표시하는 TextField  변수 선언
 	 */
-	private JTextField tfNum		= null;
+	private JTextField tfItemCode		= null;
 
 
 	/**
-	 * @tfName	이름을 표시하는 텍스트필드 변수명
+	 * @tfItemName	이름을 표시하는 텍스트필드 변수명
 	 * @GeneratedValue
 	 * 설명 : 이름을 표시하는 TextField 변수 선언
 	 */
-	private JTextField tfName		= null;
+	private JTextField tfItemName		= null;
 
 	
 	/**
-	 * @tfcount 수량를 표시하는 텍스트필드 변수명
+	 * @tfSelectedItemNum 수량를 표시하는 텍스트필드 변수명
 	 * @GeneratedValue
 	 * 설명 : 수량를 표시하는 TextField 변수 선언
 	 */
-	private JTextField tfcount	= null;
+	private JTextField tfSelectedItemNum	= null;
 
 	
 //	레이블 변수 선언
-	private JLabel	lblNum			= null;
-	private JLabel	lblName			= null;
-	private JLabel	lblcount		= null;
+	private JLabel	lblItemCode			= null;
+	private JLabel	lblItemName			= null;
+	private JLabel	lblSelectedItemNum		= null;
 
 	
 	/**
@@ -145,7 +145,6 @@ public class JdbcVectorTableEvnetSample extends JFrame {
 	 * @pstmtDel	삭제 쿼리문 실행시 변수저장 변수
 	 * @GeneratedValue
 	 * 설명 : 삭제(delete) 쿼리 실행하는 PreparedStatement 객체 변수 선언
-
 	 */
 	private PreparedStatement pstmtDel    = null;
 	
@@ -219,23 +218,23 @@ public class JdbcVectorTableEvnetSample extends JFrame {
 
 				
 //				in 벡터에 들어있는 값을 각각의 String 변수에 대입 
-				String num = (String)in.get(0);
-				String name = (String)in.get(1);
-				String count = (String)in.get(2);
+				String ItemCode = (String)in.get(0);
+				String ItemName = (String)in.get(1);
+				String SelectedItemNum = (String)in.get(2);
 
 				
 
 //				화면에 표시된 각각의 TextField(상품코드, 이름, 수량)에 
 //				값 setting
-				tfNum.setText(num);
-				tfName.setText(name);
-				tfcount.setText(count);
+				tfItemCode.setText(ItemCode);
+				tfItemName.setText(ItemName);
+				tfSelectedItemNum.setText(SelectedItemNum);
 
 				
 //				상품코드는 setEditable(false)로 수정 방지 처리
-				tfNum.setEditable(false);
-//				tfName.setEditable(false);
-//				tfcount.setEditable(false);
+				tfItemCode.setEditable(false);
+//				tfItemName.setEditable(false);
+//				tfSelectedItemNum.setEditable(false);
 			}
 		});
 
@@ -246,15 +245,15 @@ public class JdbcVectorTableEvnetSample extends JFrame {
 		
 
 //		값을 입력받거나 표시할 텍스트필드(상품코드, 상품명, 수량) 생성
-		tfNum = new JTextField(8);
-		tfName = new JTextField(10);
-		tfcount = new JTextField(20);
+		tfItemCode = new JTextField(8);
+		tfItemName = new JTextField(10);
+		tfSelectedItemNum = new JTextField(20);
 
 
 //		레이블 생성
-		lblNum = new JLabel("상품코드");
-		lblName = new JLabel("상품명");
-		lblcount = new JLabel("수량");
+		lblItemCode = new JLabel("상품코드");
+		lblItemName = new JLabel("상품명");
+		lblSelectedItemNum = new JLabel("수량");
 
 		
 
@@ -276,14 +275,14 @@ public class JdbcVectorTableEvnetSample extends JFrame {
 
 			public void actionPerformed(ActionEvent e) {
 //				현재 텍스트 필드에 있는 값을 각각의 변수에 대입 
-				String num = tfNum.getText(); // 상품코드
-				String name = tfName.getText(); // 이름
-				String count = tfcount.getText(); // 수량
+				String ItemCode = tfItemCode.getText(); // 상품코드
+				String ItemName = tfItemName.getText(); // 이름
+				String SelectedItemNum = tfSelectedItemNum.getText(); // 수량
 
 
 				
 //				각각의 변수에 저장된 값을 데이터베이스에 Insert하는 메소드
-				insert(num, name, count);
+				insert(ItemCode, ItemName, SelectedItemNum);
 
 				
 //				신규 저장된 데이터를 데이터베이스에서 다시 읽어와서 result 벡터에 저장 
@@ -306,10 +305,10 @@ public class JdbcVectorTableEvnetSample extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 //				텍스트필드에 있는 상품코드값 변수에 대입
-				String num = tfNum.getText();
+				String ItemCode = tfItemCode.getText();
 
 //				상품코드값으로 데이터베이스에서 해당 레크드를 삭제하는 메소드
-				delete(num);
+				delete(ItemCode);
 
 //				삭제처리 데이터를 데이터베이스에서 다시 읽어와서 result 벡터에 저장 
 				Vector result = selectAll();
@@ -327,13 +326,13 @@ public class JdbcVectorTableEvnetSample extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 //				텍스트필드에 있는 값들을 변수에 저장
-				String num = tfNum.getText();
-				String name = tfName.getText();
-				String count = tfcount.getText();
+				String ItemCode = tfItemCode.getText();
+				String ItemName = tfItemName.getText();
+				String SelectedItemNum = tfSelectedItemNum.getText();
 				
 
 //				상품코드를 기준으로 수정된 이름과 수량를 수정하는 메소드 
-				update(name, count, num);
+				update(ItemName, SelectedItemNum, ItemCode);
 
 
 //				삭제처리 데이터를 데이터베이스에서 다시 읽어와서 result 벡터에 저장 
@@ -352,27 +351,27 @@ public class JdbcVectorTableEvnetSample extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 //				초기화
-				tfNum.setText("");
-				tfName.setText("");
-				tfcount.setText("");
+				tfItemCode.setText("");
+				tfItemName.setText("");
+				tfSelectedItemNum.setText("");
 
 //				수정가능하게 변경
-				tfNum.setEditable(true);
-				tfName.setEditable(true);
-				tfcount.setEditable(true);
+				tfItemCode.setEditable(true);
+				tfItemName.setEditable(true);
+				tfSelectedItemNum.setEditable(true);
 //				상품코드텍스트필드에 커서 위치
-				tfNum.requestFocus();
+				tfItemCode.requestFocus();
 			}
 		});
 		
 
 //		패널에 각각의 레이블과 텍스트필드 추가
-		panel.add(lblNum);
-		panel.add(tfNum);
-		panel.add(lblName);
-		panel.add(tfName);
-		panel.add(lblcount);
-		panel.add(tfcount);
+		panel.add(lblItemCode);
+		panel.add(tfItemCode);
+		panel.add(lblItemName);
+		panel.add(tfItemName);
+		panel.add(lblSelectedItemNum);
+		panel.add(tfSelectedItemNum);
 
 		
 //		패널에 버튼 추가
@@ -412,30 +411,30 @@ public class JdbcVectorTableEvnetSample extends JFrame {
 	
 
 	/**
-	 * @Method Name : selectAll
+	 * @Method ItemName : selectAll
 	 * @return : data  
 	 * 설명 : 데이터베이스에서 검색된 데이터를 data Vector에 담아 리턴
 	 */
 	private Vector selectAll() {
 		data.clear();
 		try{
-			ResultSet rs = stmt.executeQuery("select * from member order by num");
+			ResultSet rs = stmt.executeQuery("select * from member order by ItemCode");
 			while(rs.next()){
 				Vector in = new Vector<String>(); // 1개의 레코드 저장하는 벡터 생성
 
-				String num = rs.getString(1); // 데이터베이스에서 상품코드값 가지고 와서 num 변수에 저장
-//				String num = rs.getString("num");
+				String ItemCode = rs.getString(1); // 데이터베이스에서 상품코드값 가지고 와서 ItemCode 변수에 저장
+//				String ItemCode = rs.getString("ItemCode");
 
-				String name = rs.getString(2); // 데이터베이스에서 이름값 가지고 와서 name 변수에 저장
-//				String name = rs.getString("name");
+				String ItemName = rs.getString(2); // 데이터베이스에서 이름값 가지고 와서 ItemName 변수에 저장
+//				String ItemName = rs.getString("ItemName");
 
-				String count = rs.getString(3); // 데이터베이스에서 수량값 가지고 와서 count 변수에 저장
-//				String count = rs.getString("count");
+				String SelectedItemNum = rs.getString(3); // 데이터베이스에서 수량값 가지고 와서 SelectedItemNum 변수에 저장
+//				String SelectedItemNum = rs.getString("SelectedItemNum");
 
 //				벡터에 각각의 값 추가
-				in.add(num);
-				in.add(name);
-				in.add(count);
+				in.add(ItemCode);
+				in.add(ItemName);
+				in.add(SelectedItemNum);
 
 
 //				전체 데이터를 저장하는 벡터에 in(1명의 데이터 저장) 벡터 추가
@@ -449,24 +448,24 @@ public class JdbcVectorTableEvnetSample extends JFrame {
 
 
 	/**
-	 * @Method Name : insert
-	 * @param num :상품코드 텍스트필드에 입력받은 값 
-	 * @param name : 이름 텍스트필드에 입력받은 값
-	 * @param count : 수량 텍스트필드에 입력받은 값
+	 * @Method ItemName : insert
+	 * @param ItemCode :상품코드 텍스트필드에 입력받은 값 
+	 * @param ItemName : 이름 텍스트필드에 입력받은 값
+	 * @param SelectedItemNum : 수량 텍스트필드에 입력받은 값
 	 * 설명 : 각각의 텍스트필드에 입력된 값을 파라미터로 받아서 데이터베이스에 
 	 *        insert 처리하는 메소드
 	 */
 
-	private void insert(String num, String name, String count){
+	private void insert(String ItemCode, String ItemName, String SelectedItemNum){
 		try{
 //			PreparedStatement 생성-> conn은 preDbTreatment() 메소드를 통해 생성되어 있음
 			pstmtAdd = conn.prepareStatement("insert into member values(?,?,?)");
 
 
 //			insert into member values(? -> 1 ,? -> 2, ? -> 3)" 각각의 ? 에 값 대입
-			pstmtAdd.setString(1, num);
-			pstmtAdd.setString(2, name);
-			pstmtAdd.setString(3, count);
+			pstmtAdd.setString(1, ItemCode);
+			pstmtAdd.setString(2, ItemName);
+			pstmtAdd.setString(3, SelectedItemNum);
 
 			
 //			대입받은 쿼리를 실행 -> 입력 (insert)
@@ -480,20 +479,20 @@ public class JdbcVectorTableEvnetSample extends JFrame {
 	
 
 	/**
-	 * @Method Name : delete
-	 * @param num : 상품코드 텍스트필드에 입력받은 값
+	 * @Method ItemName : delete
+	 * @param ItemCode : 상품코드 텍스트필드에 입력받은 값
 	 * 설명 : 상품코드값을 파라미터를 받아 해당 상품코드의 데이터를 디비에서 삭제(delete) 하는 메소드 
 	 */
 
-	private void delete(String num){
+	private void delete(String ItemCode){
 
 		try{
 
 //			PreparedStatement 생성-> conn은 preDbTreatment() 메소드를 통해 생성되어 있음
-			pstmtDel = conn.prepareStatement("delete from member where num = ?");
+			pstmtDel = conn.prepareStatement("delete from member where ItemCode = ?");
 
-//			num 값을 비교해서 삭제함
- 			pstmtDel.setString(1, num);
+//			ItemCode 값을 비교해서 삭제함
+ 			pstmtDel.setString(1, ItemCode);
 
 // 			대입받은 쿼리를 실행-> 삭제 (delete)
 			pstmtDel.executeUpdate();
@@ -506,22 +505,22 @@ public class JdbcVectorTableEvnetSample extends JFrame {
 	
 
 	/**
-	 * @Method Name : update
-	 * @param name : 이름 텍스트필드에 입력받은 값
-	 * @param count : 수량 텍스트필드에 입력받은 값
-	 * @param num : 상품코드 텍스트필드에 입력받은 값
+	 * @Method ItemName : update
+	 * @param ItemName : 이름 텍스트필드에 입력받은 값
+	 * @param SelectedItemNum : 수량 텍스트필드에 입력받은 값
+	 * @param ItemCode : 상품코드 텍스트필드에 입력받은 값
 	 * 설명 : 각각의 텍스트필드에 입력된 값을 파라미터로 받아서 데이터베이스에 
 	 *        해당 상품코드값으로 이름과 수량를 수정하는 메소드 
 	 */
-	private void update(String name, String count, String num){
+	private void update(String ItemName, String SelectedItemNum, String ItemCode){
 		try{
 //			PreparedStatement 생성-> conn은 preDbTreatment() 메소드를 통해 생성되어 있음
-			pstmtUpdate = conn.prepareStatement("update member set name = ?, count = ? where num = ?");
+			pstmtUpdate = conn.prepareStatement("update member set ItemName = ?, SelectedItemNum = ? where ItemCode = ?");
 //			값 대입
-			pstmtUpdate.setString(1, name);
-			pstmtUpdate.setString(2, count);
+			pstmtUpdate.setString(1, ItemName);
+			pstmtUpdate.setString(2, SelectedItemNum);
 //			? 순서 중요 확인 필요함
-			pstmtUpdate.setString(3, num);
+			pstmtUpdate.setString(3, ItemCode);
 //			쿼리 실행
 			pstmtUpdate.executeUpdate();	
 
@@ -532,7 +531,7 @@ public class JdbcVectorTableEvnetSample extends JFrame {
 
 
 	/**
-	 * @Method Name : preDbTreatment
+	 * @Method ItemName : preDbTreatment
 	 * 설명 : 데이터베이스 연동 및 Connection, Statement 생성
 	 */
 	private void preDbTreatment() {
