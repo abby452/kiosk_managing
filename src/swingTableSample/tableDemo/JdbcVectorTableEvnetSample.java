@@ -78,11 +78,11 @@ public class JdbcVectorTableEvnetSample extends JFrame {
 
 
 	/**
-	 * @ tfCode		상품코드를 표시하는 텍스트 필드 변수명
+	 * @ tfNum		상품코드를 표시하는 텍스트 필드 변수명
 	 * @GeneratedValue
 	 * 설명 : 상품코드를 표시하는 TextField  변수 선언
 	 */
-	private JTextField tfCode		= null;
+	private JTextField tfNum		= null;
 
 
 	/**
@@ -102,7 +102,7 @@ public class JdbcVectorTableEvnetSample extends JFrame {
 
 	
 //	레이블 변수 선언
-	private JLabel	lblCode			= null;
+	private JLabel	lblNum			= null;
 	private JLabel	lblName			= null;
 	private JLabel	lblcount		= null;
 
@@ -227,13 +227,13 @@ public class JdbcVectorTableEvnetSample extends JFrame {
 
 //				화면에 표시된 각각의 TextField(상품코드, 이름, 수량)에 
 //				값 setting
-				tfCode.setText(num);
+				tfNum.setText(num);
 				tfName.setText(name);
 				tfcount.setText(count);
 
 				
 //				상품코드는 setEditable(false)로 수정 방지 처리
-				tfCode.setEditable(false);
+				tfNum.setEditable(false);
 //				tfName.setEditable(false);
 //				tfcount.setEditable(false);
 			}
@@ -246,13 +246,13 @@ public class JdbcVectorTableEvnetSample extends JFrame {
 		
 
 //		값을 입력받거나 표시할 텍스트필드(상품코드, 상품명, 수량) 생성
-		tfCode = new JTextField(8);
+		tfNum = new JTextField(8);
 		tfName = new JTextField(10);
 		tfcount = new JTextField(20);
 
 
 //		레이블 생성
-		lblCode = new JLabel("상품코드");
+		lblNum = new JLabel("상품코드");
 		lblName = new JLabel("상품명");
 		lblcount = new JLabel("수량");
 
@@ -276,7 +276,7 @@ public class JdbcVectorTableEvnetSample extends JFrame {
 
 			public void actionPerformed(ActionEvent e) {
 //				현재 텍스트 필드에 있는 값을 각각의 변수에 대입 
-				String num = tfCode.getText(); // 상품코드
+				String num = tfNum.getText(); // 상품코드
 				String name = tfName.getText(); // 이름
 				String count = tfcount.getText(); // 수량
 
@@ -306,7 +306,7 @@ public class JdbcVectorTableEvnetSample extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 //				텍스트필드에 있는 상품코드값 변수에 대입
-				String num = tfCode.getText();
+				String num = tfNum.getText();
 
 //				상품코드값으로 데이터베이스에서 해당 레크드를 삭제하는 메소드
 				delete(num);
@@ -327,11 +327,10 @@ public class JdbcVectorTableEvnetSample extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 //				텍스트필드에 있는 값들을 변수에 저장
-				String num = tfCode.getText();
+				String num = tfNum.getText();
 				String name = tfName.getText();
 				String count = tfcount.getText();
 				
-
 
 //				상품코드를 기준으로 수정된 이름과 수량를 수정하는 메소드 
 				update(name, count, num);
@@ -343,7 +342,6 @@ public class JdbcVectorTableEvnetSample extends JFrame {
 
 //				변경된 데이터(벡터)로 모델 갱신 -> 테이블 표시 갱신됨
 				model.setDataVector(result, title);
-
 			}
 		});
 
@@ -354,23 +352,23 @@ public class JdbcVectorTableEvnetSample extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 //				초기화
-				tfCode.setText("");
+				tfNum.setText("");
 				tfName.setText("");
 				tfcount.setText("");
 
 //				수정가능하게 변경
-				tfCode.setEditable(true);
+				tfNum.setEditable(true);
 				tfName.setEditable(true);
 				tfcount.setEditable(true);
 //				상품코드텍스트필드에 커서 위치
-				tfCode.requestFocus();
+				tfNum.requestFocus();
 			}
 		});
 		
 
 //		패널에 각각의 레이블과 텍스트필드 추가
-		panel.add(lblCode);
-		panel.add(tfCode);
+		panel.add(lblNum);
+		panel.add(tfNum);
 		panel.add(lblName);
 		panel.add(tfName);
 		panel.add(lblcount);
